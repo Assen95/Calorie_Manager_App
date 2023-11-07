@@ -14,25 +14,29 @@
 
 <body>
     <div class="container">
-
+        {{ api }}
         <div class="row justify-content-center">
             <div class="col-md-8 text-center">
                 <img src="{% static 'images/Logo.png' %}" class=" img-responsive logo mb-5 mt-5" />
-                <form>
+
+                <form method="POST">
+                    {% csrf_token %}
                     <div class="input-group input-group-lg mb-5">
                         <input type="text" name="query" class="form-control inputstyle"
                             placeholder="search for calories in your food..." required>
                         <button class="btn whoop" type="submit" id="button-addon2">Find calories</button>
                     </div>
                 </form>
-                <div class="alert alert-warning"> Oh no! something went wrong.Please try again in sometime. </div>
-                <h1> Granola has a total of <strong> 100 Calories</strong>
-                    <img src="{% static 'images/shocked.png' %}" class="img-responsive" />
-                </h1>
+                {% if api %}
+                    <div class="alert alert-warning">
+                        <h1> Granola has a total of <strong> 100 Calories</strong>
+                            <img src="{% static 'images/shocked.png' %}" class="img-responsive" />
+                        </h1>
+                    </div>
 
                 <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
                     <div>
-                        This food contains an high amount of sodium. High Sodium cuases Sever dehydration and water
+                        This food contains a high amount of sodium. High Sodium causes Sever dehydration and water
                         retention.
                     </div>
                 </div>
@@ -52,7 +56,7 @@
                                 <li>Total Fat: <span class="float-end">0.00</span></li>
                                 <li>Fiber Content: <span class="float-end">0.00</span></li>
                                 <li>Potassium <span class="float-end">0.00</span></li>
-                                <li>Protein: <span class="float-end">0.00<span></li>
+                                <li>Protein: <span class="float-end">0.00</span></li>
                                 <li>Sodium:<span class="float-end">0.00</span></li>
                                 <li>Sugar: <span class="float-end">0.00</span></li>
                             </ul>
@@ -103,6 +107,9 @@
                     </div>
                 </div>
             </div>
+        {% else %}
+            <div class="alert alert-warning"> Food not in database. Please enter common food. </div>
+        {% endif %}
 </body>
 
 </html>
