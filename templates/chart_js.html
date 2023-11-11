@@ -1,0 +1,57 @@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      const ctx = document.getElementById('myChart');
+
+      new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Carbohydrates', 'Cholesterol', 'Saturated Fat', 'Total Fat', 'Fiber Content', 'Potassium', 'Protein', 'Sodium', 'Sugar'],
+          datasets: [{
+            label: 'Nutritional Values of {{ api.0.name|capfirst }}',
+            data: [
+                {{ api.0.carbohydrates_total_g|floatformat:2 }},
+                {{ api.0.cholesterol_mg|floatformat:2 }},
+                {{ api.0.fat_saturated_g|floatformat:2 }},
+                {{ api.0.fat_total_g|floatformat:2 }},
+                {{ api.0.fiber_g|floatformat:2 }},
+                {{ api.0.potassium_mg|floatformat:2 }},
+                {{ api.0.protein_g|floatformat:2 }},
+                {{ api.0.sodium_mg|floatformat:2 }},
+                {{ api.0.sugar_g|floatformat:2 }}
+            ],
+            backgroundColor: [
+                'rgb(255, 0, 0, 0.4)',
+                'rgb(0, 255, 255, 0.4)',
+                'rgb(24, 211, 64, 0.4)',
+                'rgb(238, 228, 19, 0.4)',
+                'rgb(227, 27, 26, 0.4)',
+                'rgb(170, 100, 50, 0.4)',
+                'rgb(255, 89, 0, 0.4)',
+                'rgb(255, 185, 255, 1)',
+                'rgb(209, 209, 209, 1)'
+            ],
+            borderColor: [
+                'rgb(0, 255, 0, 0.4)',
+                'rgb(0, 255, 255, 0.4)',
+                'rgb(24, 211, 64, 0.4)',
+                'rgb(238, 228, 19, 0.4)',
+                'rgb(227, 27, 26, 0.4)',
+                'rgb(170, 100, 50, 0.4)',
+                'rgb(255, 89, 0, 0.4)',
+                'rgb(0, 0, 0, 0.5)',
+                'rgb(255, 255, 255, 1)'
+            ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+          scales: {
+            y: {
+              beginAtZero: true
+            }
+          }
+        }
+      });
+</script>

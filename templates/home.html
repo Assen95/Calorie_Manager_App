@@ -34,16 +34,29 @@
                 {% else %}
                     <div class="alert alert-warning">
                         <h1> {{ api.0.name|capfirst }} has a total of <strong> {{ api.0.calories }} Calories</strong>
-                            <img src="{% static 'images/shocked.png' %}" class="img-responsive" />
+                            {% if api.0.calories >= 200 %}
+                                <img src="{% static 'images/shocked.png' %}" class="img-responsive" />
+                            {% endif %}
                         </h1>
                     </div>
 
-                <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
-                    <div>
-                        This food contains a high amount of sodium. High Sodium causes Sever dehydration and water
-                        retention.
+                {% if api.0.sodium_mg > 600 %}
+                    <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
+                        <div>
+                            This food contains a high amount of sodium. High amounts of sodium causes severe dehydration and water
+                            retention, it can also lead to high blood pressure, heart disease, and stroke.
+                        </div>
                     </div>
-                </div>
+                {% endif %}
+
+                {% if api.0.sugar_g > 40 %}
+                    <div class="alert alert-danger d-flex align-items-center mt-3" role="alert">
+                        <div>
+                            This food contains a high amount of sugar. Eating too much added sugar can have many negative health effects. An excess of sweetened foods and beverages can lead to weight gain, blood sugar problems, and an increased risk of heart disease, among other dangerous conditions.
+                        </div>
+                    </div>
+                {% endif %}
+
             </div>
             <div class="row justify-content-center mt-5 mb-5">
                 <div class="col-md-10 caloriescont shadow rounded">
@@ -108,11 +121,13 @@
                                 </div>
                             </div>
                         </div>
+                        <div>
+                            <canvas id="myChart" width="400" height="400"></canvas>
+                        </div>
+                        {% include 'chart_js.html' %}
                     </div>
                 </div>
             </div>
-{#        {% else %}#}
-{#            <div class="alert alert-warning"> Food not in database. Please enter common food. </div>#}
         {% endif %}
         {% endif %}
 </body>
